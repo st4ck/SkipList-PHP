@@ -265,10 +265,8 @@ class SkipList implements Iterator, ArrayAccess
 
         $current = $current->forward[0];
 
-        $foundElement = false;
-
         if ($current !== null && $current->val === $val) {
-            $foundElement = true;
+            $this->number_elements--;
 
             for ($i = 0; $i <= $this->level; $i++) {
                 if ($update[$i]->forward[$i] === $current) {
@@ -282,10 +280,6 @@ class SkipList implements Iterator, ArrayAccess
             ) {
                 $this->level--;
             }
-        }
-
-        if ($foundElement) {
-            $this->number_elements--;
         }
     }
 
