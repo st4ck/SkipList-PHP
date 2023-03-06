@@ -115,10 +115,10 @@ class SkipList implements Iterator, ArrayAccess {
 	
     $maxLevel = $this->level;
     $current = $this->head->forward[0];
-    $count = 0;
-	$indexes_position = 0;
+    $count = 1;
+    $indexes_position = 0;
 	
-	$randomValues = array();
+    $randomValues = array();
 
     while (($current !== null) && ($indexes_position < $number)) {	  
 	  if ($count === $indexes[$indexes_position]) {
