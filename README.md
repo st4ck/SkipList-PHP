@@ -18,7 +18,8 @@ foreach ($skiplist as $val) {
 
 var_dump($skiplist->toArray());
 
-$skiplist->addMany(array("B","C"));
+$arr = array("B","C");
+$skiplist->addMany($arr);
 
 $randomValues = $skiplist->getRandomM(2); // return 2 random values from the SkipList
 ?>
