@@ -68,7 +68,7 @@ getRandom(): Returns a random value from the SkipList. Complexity O(n).
 
 getRandomM(): Accepts a number parameter and returns an array of "number" random values from the SkipList. Complexity O(n).
 
-randomLevel(): Returns a random level between 0 and the maximum level.
+randomLevel(): Returns a random level between 0 and the maximum level. Complexity O(maxLevel).
 
 count(): Returns the number of elements in the SkipList. Complexity O(1).
 
