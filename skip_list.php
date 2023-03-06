@@ -219,7 +219,6 @@ class SkipList implements Iterator, ArrayAccess {
   }
 
   public function delete($val) {
-	$this->number_elements--;
     $update = array_fill(0, $this->maxLevel, null);
     $current = $this->head;
 
@@ -232,9 +231,13 @@ class SkipList implements Iterator, ArrayAccess {
     }
 
     $current = $current->forward[0];
+	
+	$foundElement = false;
 
     if ($current !== null && $current->val === $val) {
-      for ($i = 0; $i <= $this->level; $i++) {
+	  $foundElement = true;
+
+	  for ($i = 0; $i <= $this->level; $i++) {
         if ($update[$i]->forward[$i] === $current) {
           $update[$i]->forward[$i] = $current->forward[$i];
         }
@@ -244,5 +247,21 @@ class SkipList implements Iterator, ArrayAccess {
 		$this->level--;
 	  }
 	}
+	
+	if ($foundElement) { $this->number_elements--; }
+  }
+  
+  public function printList() {
+      for ($i = $this->maxLevel; $i >= 0; $i--) {
+		$current = $this->head->forward[$i];
+
+		print $i.":\t";
+        while ($current !== null) {
+			print $current->val." ";
+			$current = $current->forward[$i];
+		}
+		
+		print "\n";
+      }
   }
 }
