@@ -81,3 +81,5 @@ search(): Accepts a value parameter and searches for its position in the SkipLis
 add(): Accepts a value parameter and adds it to the SkipList. Complexity O(log n).
 
 delete(): Accepts a value parameter and removes it from the SkipList. Complexity O(log n).
+
+printList(): Print the skip list without considering spacing. Just a raw print of all levels.
