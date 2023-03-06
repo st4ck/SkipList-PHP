@@ -42,42 +42,42 @@ Initializes the head of the SkipList with a null value and a forward array of si
 Initializes other class attributes, such as level, position, and the number of elements.
 
 ### Iterator methods:
-current(): Returns the value of the current position in the SkipList.
+current(): Returns the value of the current position in the SkipList. Complexity O(1).
 
-key(): Returns null since there is no associated key in the SkipList.
+key(): Returns null since there is no associated key in the SkipList. Complexity O(1).
 
-next(): Moves the current position pointer to the next node in the SkipList.
+next(): Moves the current position pointer to the next node in the SkipList. Complexity O(1).
 
-rewind(): Resets the current position pointer to the first node in the SkipList.
+rewind(): Resets the current position pointer to the first node in the SkipList. Complexity O(1).
 
-valid(): Returns true if the current position pointer is not null and false otherwise.
+valid(): Returns true if the current position pointer is not null and false otherwise. Complexity O(1).
 
 
 ### ArrayAccess methods:
-offsetExists(): Accepts an offset parameter and returns true if the value associated with the offset exists in the SkipList and false otherwise.
+offsetExists(): Accepts an offset parameter and returns true if the value associated with the offset exists in the SkipList and false otherwise. Complexity O(n).
 
-offsetGet(): Accepts an offset parameter and returns the value associated with the offset in the SkipList.
+offsetGet(): Accepts an offset parameter and returns the value associated with the offset in the SkipList. Complexity O(n).
 
-offsetSet(): Accepts an offset and a value parameter and adds the value to the SkipList. (see Exceptions)
+offsetSet(): Accepts an offset and a value parameter and adds the value to the SkipList. (see Exceptions). Complexity O(n).
 
-offsetUnset(): Accepts an offset parameter and removes the value associated with the offset from the SkipList.
+offsetUnset(): Accepts an offset parameter and removes the value associated with the offset from the SkipList. Complexity O(n).
 
 
 ### Main methods:
-getRandom(): Returns a random value from the SkipList.
+getRandom(): Returns a random value from the SkipList. Complexity O(n).
 
-getRandomM(): Accepts a number parameter and returns an array of "number" random values from the SkipList.
+getRandomM(): Accepts a number parameter and returns an array of "number" random values from the SkipList. Complexity O(n).
 
 randomLevel(): Returns a random level between 0 and the maximum level.
 
-count(): Returns the number of elements in the SkipList.
+count(): Returns the number of elements in the SkipList. Complexity O(1).
 
-addMany(): Accepts an array parameter and adds all its values to the SkipList.
+addMany(): Accepts an array parameter and adds all its values to the SkipList. Complexity O(m log n).
 
-toArray(): Returns an array of all the values in the SkipList.
+toArray(): Returns an array of all the values in the SkipList. Complexity O(n).
 
-search(): Accepts a value parameter and searches for its position in the SkipList.
+search(): Accepts a value parameter and searches for its position in the SkipList. Complexity O(log n).
 
-add(): Accepts a value parameter and adds it to the SkipList.
+add(): Accepts a value parameter and adds it to the SkipList. Complexity O(log n).
 
-delete(): Accepts a value parameter and removes it from the SkipList.
+delete(): Accepts a value parameter and removes it from the SkipList. Complexity O(log n).
