@@ -241,7 +241,6 @@ class SkipList implements Iterator, ArrayAccess, Countable
 
     public function add($val)
     {
-        $this->number_elements++;
         $update = array_fill(0, $this->maxLevel, null);
         $current = $this->head;
 
@@ -278,7 +277,13 @@ class SkipList implements Iterator, ArrayAccess, Countable
                 $node->forward[$i] = $update[$i]->forward[$i];
                 $update[$i]->forward[$i] = $node;
             }
+
+            $this->number_elements++;
+        } else {
+            $node = $current;
         }
+
+        return $node;
     }
 
     public function delete($val)
@@ -303,8 +308,6 @@ class SkipList implements Iterator, ArrayAccess, Countable
             $current !== null &&
             $this->comparator($current->val, $val, "===")
         ) {
-            $this->number_elements--;
-
             for ($i = 0; $i <= $this->level; $i++) {
                 if ($update[$i]->forward[$i] === $current) {
                     $update[$i]->forward[$i] = $current->forward[$i];
@@ -317,6 +320,8 @@ class SkipList implements Iterator, ArrayAccess, Countable
             ) {
                 $this->level--;
             }
+
+            $this->number_elements--;
 
             return true;
         }
