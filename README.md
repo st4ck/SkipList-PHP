@@ -102,32 +102,32 @@ Initializes other class attributes, such as level, position, and the number of e
 
 
 ### ArrayAccess methods:
-**offsetExists()**: Accepts an offset parameter and returns true if the value associated with the offset exists in the SkipList and false otherwise. Complexity **O(n)**.
+**offsetExists($offset)**: Accepts an offset parameter and returns true if the value associated with the offset exists in the SkipList and false otherwise. Complexity **O(n)**.
 
-**offsetGet()**: Accepts an offset parameter and returns the value associated with the offset in the SkipList. Complexity **O(n)**.
+**offsetGet($offset)**: Accepts an offset parameter and returns the value associated with the offset in the SkipList. Complexity **O(n)**.
 
-**offsetSet()**: Accepts an offset and a value parameter and adds the value to the SkipList. (see Exceptions). Complexity **O(n)**.
+**offsetSet($offset, $value)**: Accepts an offset and a value parameter and adds the value to the SkipList. (see Exceptions). Complexity **O(n)**.
 
-**offsetUnset()**: Accepts an offset parameter and removes the value associated with the offset from the SkipList. Complexity **O(n)**.
+**offsetUnset($offset)**: Accepts an offset parameter and removes the value associated with the offset from the SkipList. Complexity **O(n)**.
 
 
 ### Main methods:
 **getRandom()**: Returns a random value from the SkipList. Complexity **O(n)**.
 
-**getRandomM()**: Accepts a number parameter and returns an array of "number" random values from the SkipList. Complexity **O(n)**.
+**getRandomM($number)**: Accepts a number parameter and returns an array of "number" random values from the SkipList. Complexity **O(n)**.
 
 **randomLevel()**: Returns a random level between 0 and the maximum level. Complexity **O(maxLevel)**.
 
 **count()**: Returns the number of elements in the SkipList. Complexity **O(1)**.
 
-**addMany()**: Accepts an array parameter and adds all its values to the SkipList. Complexity **O(m log n)**.
+**addMany(&$arr)**: Accepts an array parameter and adds all its values to the SkipList. Complexity **O(m log n)**.
 
 **toArray()**: Returns an array of all the values in the SkipList. Complexity **O(n)**.
 
-**search()**: Accepts a value parameter and searches for its position in the SkipList. Complexity **O(log n)**.
+**search($val)**: Accepts a value parameter and searches for its position in the SkipList. Complexity **O(log n)**.
 
-**add()**: Accepts a value parameter and adds it to the SkipList. Complexity **O(log n)**.
+**add($val)**: Accepts a value parameter and adds it to the SkipList. Complexity **O(log n)**.
 
-**delete()**: Accepts a value parameter and removes it from the SkipList. Complexity **O(log n)**.
+**delete($val)**: Accepts a value parameter and removes it from the SkipList. Complexity **O(log n)**.
 
-**printList()**: Print the skip list without considering spacing. Just a raw print of all levels.
+**printList($string_converter = null)**: Print the skip list without considering spacing. Just a raw print of all levels.
