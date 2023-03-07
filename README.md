@@ -39,14 +39,14 @@ If you want to use a custom type for the values in the SkipList, pass a comparat
 require("skip_list.php");
 
 $myComparator = function ($a, $b, $op) { // defining a custom comparator
-	switch ($op) {
-		case "<":
-			return $a[0] < $b[0];
-			break;
-		case "===":
-			return $a[0] === $b[0];
-			break;
-	}
+ switch ($op) {
+  case "<":
+   return $a[0] < $b[0];
+   break;
+  case "===":
+   return $a[0] === $b[0];
+   break;
+  }
 };
 
 $skiplist = new SkipList(2,$myComparator); // constructor 2 levels + comparator
