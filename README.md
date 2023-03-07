@@ -62,7 +62,8 @@ $val[1]->add("TEST2"); // adding in the SkipList of key "AAA"
 $val = $skiplist->search(array("BBB"))->val; // searching for the Key BBB, array ["BBB",SkipList object] retrieved
 $val[1]->add("TEST3"); // adding in the SkipList of key "BBB"
 
-$node = $skiplist->add(array("BBB",new SkipList(1))); // trying to add existing key to SkipList. Nothing is added, the method returns the existing node.
+// trying to add existing key to SkipList. Nothing is added, the method returns the existing node.
+$node = $skiplist->add(array("BBB",new SkipList(1)));
 $node->val[1]->add("TEST4"); // adding the value to the existing node at Key BBB.
 
 foreach ($skiplist as $val) { // printing all elements in SkipList
