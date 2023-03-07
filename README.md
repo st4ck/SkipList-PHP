@@ -29,7 +29,7 @@ $randomValues = $skiplist->getRandomM(2); // return 2 random values from the Ski
 unset($skiplist[1]); // deleting element in position 1 - B removed
 ?>
 ```
-This example creates a new SkipList with a maximum level of 20 and adds two values to it. It then prints the value at the first index of the SkipList and searches for the node with the value "A" and prints its value. It then iterates over the SkipList and prints each value. It converts the SkipList to array that prints. It add two new elements to the SkipList and retrieve two from the SkipList randomly. Finally, it removes the node at the second index of the SkipList.
+This example creates a new SkipList with a maximum level of 20 and adds two values to it. It then prints the value at the first index of the SkipList and searches for the node with the value `"A"` and prints its value. It then iterates over the SkipList and prints each value. It converts the SkipList to array that prints. It add two new elements to the SkipList and retrieve two from the SkipList randomly. Finally, it removes the node at the second index of the SkipList.
 
 ### Example 2
 
@@ -63,9 +63,15 @@ foreach ($skiplist as $val) { // printing all elements in SkipList
  print "-".$val[0]."\n";
  $val[1]->printList(); // calling printList of the internal SkipList
 }
+
+$myStringConverter = function ($a) {
+ return $a[0];
+};
+
+$skiplist->printList($myStringConverter);
 ?>
 ```
-This example creates a new SkipList with a maximum level of 2 and a custom comparator. It then adds three values to it, where each value is an array that contains two elements: the first element is a string, and the second element is another SkipList. It then searches for the node with the value `["AAA"]` and adds two values to its SkipList. It also searches for the node with the value `["BBB"]` and adds a value to its SkipList. Finally, it iterates over the SkipList and prints each value with its corresponding SkipList. The closure passed to the `printList()` method is used to print the values of the inner SkipLists.
+This example creates a new SkipList with a maximum level of 2 and a custom comparator. It then adds three values to it, where each value is an array that contains two elements: the first element is a string, and the second element is another SkipList. It then searches for the node with the value `["AAA"]` and adds two values to its SkipList. It also searches for the node with the value `["BBB"]` and adds a value to its SkipList. It iterates over the SkipList and prints each value with its corresponding SkipList. The closure passed to the `printList()` method is used to print the values of the inner SkipLists. Finally, it prints the main SkipList using a custom string conversion function (being the values of the SkipList of type `array ["Key",SkipList object]` and not printable)
 
 ## Complexity
 When accessing the SkipList as an array, consider that specifying an offset the complexity is O(n) because the main level must be traversed completely counting the number of elements.
