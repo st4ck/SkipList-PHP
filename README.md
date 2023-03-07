@@ -74,7 +74,7 @@ $skiplist->printList($myStringConverter);
 This example creates a new SkipList with a maximum level of 2 and a custom comparator. It then adds three values to it, where each value is an array that contains two elements: the first element is a string, and the second element is another SkipList. It then searches for the node with the value `["AAA"]` and adds two values to its SkipList. It also searches for the node with the value `["BBB"]` and adds a value to its SkipList. It iterates over the SkipList and prints each value with its corresponding SkipList. The closure passed to the `printList()` method is used to print the values of the inner SkipLists. Finally, it prints the main SkipList using a custom string conversion function (being the values of the SkipList of type `array ["Key",SkipList object]` and not printable)
 
 ## Complexity
-When accessing the SkipList as an array, consider that specifying an offset the complexity is O(n) because the main level must be traversed completely counting the number of elements.
+When accessing the SkipList as an array, consider that specifying an offset the complexity is **O(n)** because the main level must be traversed completely counting the number of elements.
 
 ## Exceptions
 When using as an array, if you change the value of an element (eg. $skiplist[1] = "1"), the old value at that offset will be removed and the new element will be added in the correct position because the skiplist must remain sorted.
