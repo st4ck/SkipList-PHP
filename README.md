@@ -2,12 +2,12 @@
 SkipList implementation in PHP. The class is iterable and accessible as a common array (with few exceptions).
 
 ## Basic usage
-Just include the skip_list.php file to your project and you can start to use the implementation. Small examples below.
+Just include the SkipList.php file to your project and you can start to use the implementation. Small examples below.
 
 ### Example 1
 ```
 <?php
-require("skip_list.php");
+require("SkipList.php");
 $skiplist = new SkipList(20); // 20 levels chosen
 $skiplist->add("Z"); // adding Z to SkipList
 $skiplist->add("A"); // adding A to SkipList
@@ -36,7 +36,7 @@ This example creates a new SkipList with a maximum level of 20 and adds two valu
 If you want to use a custom type for the values in the SkipList, pass a comparator function to the constructor like the example below.
 ```
 <?php
-require("skip_list.php");
+require("SkipList.php");
 
 $myComparator = function ($a, $b, $op) { // defining a custom comparator
  switch ($op) {
