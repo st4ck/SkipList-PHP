@@ -1,27 +1,31 @@
 # SkipList-PHP
 SkipList implementation in PHP. The class is iterable and accessible as a common array (with few exceptions).
 
-## Usage
+## Basic usage
 Just include the skip_list.php file to your project and you can start to use the implementation. Small example below.
 
 ```
 <?php
 require("skip_list.php");
 $skiplist = new SkipList(20); // 20 levels chosen
-$skiplist->add("Z");
-$skiplist->add("A");
-print $skiplist[0]."\n"; // A printed
+$skiplist->add("Z"); // adding Z to SkipList
+$skiplist->add("A"); // adding A to SkipList
 
-foreach ($skiplist as $val) {
+print $skiplist[0]."\n"; // A printed that is in position 0
+print $skiplist->search("A")->val."\n"; // A printed
+
+foreach ($skiplist as $val) { // printing all elements in SkipList
  print $val."\n";
 }
 
-var_dump($skiplist->toArray());
+var_dump($skiplist->toArray()); // converting SkipList to Array
 
 $arr = array("B","C");
-$skiplist->addMany($arr);
+$skiplist->addMany($arr); // adding 2 elements to SkipList
 
 $randomValues = $skiplist->getRandomM(2); // return 2 random values from the SkipList
+
+unset($skiplist[1]); // deleting element in position 1 - B removed
 ?>
 ```
 
