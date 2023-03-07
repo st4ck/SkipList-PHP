@@ -62,6 +62,9 @@ $val[1]->add("TEST2"); // adding in the SkipList of key "AAA"
 $val = $skiplist->search(array("BBB"))->val; // searching for the Key BBB, array ["BBB",SkipList object] retrieved
 $val[1]->add("TEST3"); // adding in the SkipList of key "BBB"
 
+$node = $skiplist->add(array("BBB",new SkipList(1))); // trying to add existing key to SkipList. Nothing is added, the method returns the existing node.
+$node->val[1]->add("TEST4"); // adding the value to the existing node at Key BBB.
+
 foreach ($skiplist as $val) { // printing all elements in SkipList
  print "-".$val[0]."\n";
  $val[1]->printList(); // calling printList of the internal SkipList
@@ -74,7 +77,7 @@ $myStringConverter = function ($a) {
 $skiplist->printList($myStringConverter);
 ?>
 ```
-This example creates a new SkipList with a maximum level of 2 and a custom comparator. It then adds three values to it, where each value is an array that contains two elements: the first element is a string, and the second element is another SkipList. It then searches for the node with the value `["AAA"]` and adds two values to its SkipList. It also searches for the node with the value `["BBB"]` and adds a value to its SkipList. It iterates over the SkipList and prints each value with its corresponding SkipList. The closure passed to the `printList()` method is used to print the values of the inner SkipLists. Finally, it prints the main SkipList using a custom string conversion function (being the values of the SkipList of type `array ["Key",SkipList object]` and not printable)
+This example creates a new SkipList with a maximum level of 2 and a custom comparator. It then adds three values to it, where each value is an array that contains two elements: the first element is a string, and the second element is another SkipList. It then searches for the node with the value `["AAA"]` and adds two values to its SkipList. It also searches for the node with the value `["BBB"]` and adds a value to its SkipList. It tries to add an existing key to the SkipList, but can't so the method returns the existing node. It adds a new value to the existing node. It iterates over the SkipList and prints each value with its corresponding SkipList. The closure passed to the `printList()` method is used to print the values of the inner SkipLists. Finally, it prints the main SkipList using a custom string conversion function (being the values of the SkipList of type `array ["Key",SkipList object]` and not printable)
 
 ## Complexity
 When accessing the SkipList as an array, consider that specifying an offset the complexity is **O(n)** because the main level must be traversed completely counting the number of elements.
