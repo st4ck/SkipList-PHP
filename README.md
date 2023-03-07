@@ -129,7 +129,7 @@ Initializes other class attributes, such as level, position, and the number of e
 
 **search($val)**: Accepts a value parameter and searches for its position in the SkipList. Complexity **O(log n)**.
 
-**add($val)**: Accepts a value parameter and adds it to the SkipList. Complexity **O(log n)**.
+**add($val)**: Accepts a value parameter and adds it to the SkipList. If the value already exists in the SkipList, nothing added. Function returns the new or the existing node of the SkipList. Complexity **O(log n)**.
 
 **delete($val)**: Accepts a value parameter and removes it from the SkipList. Complexity **O(log n)**.
 
