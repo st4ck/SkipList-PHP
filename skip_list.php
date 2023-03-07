@@ -11,16 +11,35 @@ class SkipNode
     }
 }
 
-class SkipList implements Iterator, ArrayAccess
+class SkipList implements Iterator, ArrayAccess, Countable
 {
     private $maxLevel;
     private $level;
     private $head;
     private $position;
     private $number_elements;
+    private $comparator;
 
-    public function __construct($maxLevel = 10)
+    public function __construct($maxLevel = 10, $comparator = null)
     {
+        if ($maxLevel < 1) {
+            throw new ErrorException("Levels must be greater than 0");
+        }
+
+        $this->comparator = $comparator;
+        if ($this->comparator === null) {
+            $this->comparator = function ($a, $b, $op) {
+                switch ($op) {
+                    case "<":
+                        return $a < $b;
+                        break;
+                    case "===":
+                        return $a === $b;
+                        break;
+                }
+            };
+        }
+
         $this->maxLevel = $maxLevel;
         $this->level = 0;
         $this->head = new SkipNode(null, $this->maxLevel);
@@ -28,6 +47,14 @@ class SkipList implements Iterator, ArrayAccess
         $this->number_elements = 0;
     }
 
+    public function __call($method, $args)
+    {
+        if ($this->{$method} instanceof Closure) {
+            return call_user_func_array($this->{$method}, $args);
+        }
+    }
+
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->position->val;
@@ -38,26 +65,27 @@ class SkipList implements Iterator, ArrayAccess
         return null;
     }
 
-    public function next()
+    public function next(): void
     {
         $this->position = $this->position->forward[0];
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         $this->position = $this->head->forward[0];
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return $this->position !== null;
     }
 
-    public function offsetExists($offset)
+    public function offsetExists($offset): bool
     {
         return $this->offsetGet($offset) !== null;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         $count = $this->number_elements;
@@ -82,13 +110,13 @@ class SkipList implements Iterator, ArrayAccess
         return null;
     }
 
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->offsetUnset($offset);
         $this->add($value);
     }
 
-    public function offsetUnset($offset)
+    public function offsetUnset($offset): void
     {
         $val = $this->offsetGet($offset);
         if ($val !== null) {
@@ -193,7 +221,7 @@ class SkipList implements Iterator, ArrayAccess
         for ($i = $this->level; $i >= 0; $i--) {
             while (
                 $current->forward[$i] !== null &&
-                $current->forward[$i]->val < $val
+                $this->comparator($current->forward[$i]->val, $val, "<")
             ) {
                 $current = $current->forward[$i];
             }
@@ -201,7 +229,10 @@ class SkipList implements Iterator, ArrayAccess
 
         $current = $current->forward[0];
 
-        if ($current !== null && $current->val === $val) {
+        if (
+            $current !== null &&
+            $this->comparator($current->val, $val, "===")
+        ) {
             return $current;
         } else {
             return null;
@@ -217,7 +248,7 @@ class SkipList implements Iterator, ArrayAccess
         for ($i = $this->level; $i >= 0; $i--) {
             while (
                 $current->forward[$i] !== null &&
-                $current->forward[$i]->val < $val
+                $this->comparator($current->forward[$i]->val, $val, "<")
             ) {
                 $current = $current->forward[$i];
             }
@@ -227,7 +258,10 @@ class SkipList implements Iterator, ArrayAccess
 
         $current = $current->forward[0];
 
-        if ($current === null || $current->val !== $val) {
+        if (
+            $current === null ||
+            !$this->comparator($current->val, $val, "===")
+        ) {
             $newLevel = $this->randomLevel();
 
             if ($newLevel > $this->level) {
@@ -255,7 +289,7 @@ class SkipList implements Iterator, ArrayAccess
         for ($i = $this->level; $i >= 0; $i--) {
             while (
                 $current->forward[$i] !== null &&
-                $current->forward[$i]->val < $val
+                $this->comparator($current->forward[$i]->val, $val, "<")
             ) {
                 $current = $current->forward[$i];
             }
@@ -265,7 +299,10 @@ class SkipList implements Iterator, ArrayAccess
 
         $current = $current->forward[0];
 
-        if ($current !== null && $current->val === $val) {
+        if (
+            $current !== null &&
+            $this->comparator($current->val, $val, "===")
+        ) {
             $this->number_elements--;
 
             for ($i = 0; $i <= $this->level; $i++) {
@@ -280,17 +317,27 @@ class SkipList implements Iterator, ArrayAccess
             ) {
                 $this->level--;
             }
+
+            return true;
         }
+
+        return false;
     }
 
-    public function printList()
+    public function printList($string_converter = null)
     {
+        if ($string_converter === null) {
+            $string_converter = function ($a) {
+                return $a;
+            };
+        }
+
         for ($i = $this->maxLevel; $i >= 0; $i--) {
             $current = $this->head->forward[$i];
 
             print $i . ":\t";
             while ($current !== null) {
-                print $current->val . " ";
+                print $string_converter($current->val) . " ";
                 $current = $current->forward[$i];
             }
 
