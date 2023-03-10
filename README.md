@@ -5,8 +5,10 @@ SkipList implementation in PHP. The class is iterable and accessible as a common
 ![image](https://user-images.githubusercontent.com/5120445/223442828-18477310-69de-4920-af70-bdb7a7ef6b28.png)
 
 ## Basic usage
-Just include the SkipList.php file to your project and you can start to use the implementation. Small examples below.
-Here the detailed Classes documentation documentation
+Just include the SkipList.php file to your project and you can start to use the implementation.
+
+Here the detailed [Classes documentation](https://st4ck.github.io/SkipList-PHP/) documentation and small examples below.
+
 
 ### Example 1
 ```
