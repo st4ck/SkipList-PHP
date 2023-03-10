@@ -6,6 +6,7 @@ SkipList implementation in PHP. The class is iterable and accessible as a common
 
 ## Basic usage
 Just include the SkipList.php file to your project and you can start to use the implementation. Small examples below.
+Here the detailed Classes documentation documentation
 
 ### Example 1
 ```
