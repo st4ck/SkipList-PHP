@@ -412,6 +412,53 @@ class SkipList implements Iterator, ArrayAccess, Countable, Serializable
 
         return $toReturn;
     }
+    
+	/**
+	 * Adds a set of sorted values to the SkipList linearly, without performing any comparisons
+	 *
+	 * @param array $values The array of sorted values to add to the SkipList
+	 * @return void
+	 */
+	public function addSortedValues($values)
+	{
+        $update = array_fill(0, $this->maxLevel, null);
+        $current = $this->head;
+
+        for ($i = $this->level; $i >= 0; $i--) {
+            while (
+                $current->forward[$i] !== null &&
+                $this->comparator($current->forward[$i]->val, $val, "<")
+            ) {
+                $current = $current->forward[$i];
+            }
+
+            $update[$i] = $current;
+        }
+
+        $current = $current->forward[0];
+		
+		$nvals = count($values);
+		for ($k=$nvals-1; $k>=0; $k--) {
+            $newLevel = $this->randomLevel();
+
+            if ($newLevel > $this->level) {
+                for ($i = $this->level + 1; $i <= $newLevel; $i++) {
+                    $update[$i] = $this->head;
+                }
+
+                $this->level = $newLevel;
+            }
+
+            $node = new SkipNode($values[$k], $newLevel);
+
+            for ($i = 0; $i <= $newLevel; $i++) {
+                $node->forward[$i] = $update[$i]->forward[$i];
+                $update[$i]->forward[$i] = $node;
+            }
+
+            $this->number_elements++;
+		}
+    }
 
     /**
      * Adds a value to the SkipList if not present
@@ -551,8 +598,7 @@ class SkipList implements Iterator, ArrayAccess, Countable, Serializable
         return serialize([
             "maxLevel" => $this->maxLevel,
             "level" => $this->level,
-            "head" => $this->head,
-            "position" => $this->position,
+            "head" => $this->toArray(),
             "number_elements" => $this->number_elements,
         ]);
     }
@@ -567,8 +613,9 @@ class SkipList implements Iterator, ArrayAccess, Countable, Serializable
         $vars = unserialize($data);
         $this->maxLevel = $vars["maxLevel"];
         $this->level = $vars["level"];
-        $this->head = $vars["head"];
-        $this->position = $vars["position"];
+		$this->head = new SkipNode(null, $this->maxLevel);
+        $this->addSortedValues($vars["head"]);
+        $this->position = $this->head;
         $this->number_elements = $vars["number_elements"];
         $this->setComparator(null);
     }
